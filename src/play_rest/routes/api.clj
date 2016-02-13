@@ -22,7 +22,6 @@
       {:headers
         {"Location" (build-resource-location resource persisted-data) }
        :status 201
-       :body (json/write-str persisted-data)}
-       )))
+       :body (json/write-str persisted-data)})))
 
 
