@@ -5,7 +5,9 @@
                  [compojure "1.1.6"]
                  [hiccup "1.0.5"]
                  [ring-server "0.3.1"]
-                 [ring/ring-json "0.4.0"]]
+                 [ring/ring-json "0.4.0"]
+                 [com.novemberain/monger "3.0.1"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [[lein-ring "0.8.12"]]
   :ring {:handler play-rest.handler/app
          :init play-rest.handler/init

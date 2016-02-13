@@ -2,15 +2,18 @@
   (:require [compojure.core :refer [defroutes routes]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.file-info :refer [wrap-file-info]]
+            [ring.middleware.json :as middleware]
+            [ring.middleware.params :as wrap-params]
             [hiccup.middleware :refer [wrap-base-url]]
             [compojure.handler :as handler]
             [compojure.route :as route]
             [play-rest.routes.home :refer [home-routes]]
             [play-rest.routes.api :refer [api-routes]]
-            [ring.middleware.json :as middleware]))
+            [play-rest.models.db :refer [connect!]]))
 
 (defn init []
-  (println "play-rest is starting"))
+  (connect!)
+  (println "play-rest started"))
 
 (defn destroy []
   (println "play-rest is shutting down"))
@@ -21,11 +24,7 @@
 
 (def app
   (-> (handler/site (routes api-routes home-routes app-routes))
+      ;; wrap-params
       middleware/wrap-json-body
       middleware/wrap-json-response))
 
-;; (def app
-;;
-;;(-> (routes api-routes home-routes app-routes)
-;;    (handler/site)
-;;    (wrap-base-url)) )
