@@ -1,7 +1,8 @@
 (ns play-rest.test.handler
   (:use clojure.test
         ring.mock.request
-        play-rest.handler))
+        play-rest.handler
+        play-rest.models.resource))
 
 (deftest test-app
   (testing "main route"
@@ -12,3 +13,4 @@
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
       (is (= (:status response) 404)))))
+
