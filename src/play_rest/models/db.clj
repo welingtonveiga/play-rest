@@ -12,12 +12,13 @@
 
 
 (defn uuid []
-  (str (java.util.UUID/randomUUID)))
+  (str (UUID/randomUUID)))
 
 (defn db-find[entity id]
-  {:id "Some data"})
+  (let [found (collection/find-one-as-map (:db @db-conn) entity { :_id (ObjectId. id)})]
+    (println entity)
+    (if (some? found) (update found :_id str) nil)))
 
 (defn db-persist[entity data]
   (let [persisted  (collection/insert-and-return (:db @db-conn) entity data)]
-    (println persisted)
-    (update persisted :_id str)))
+   (update persisted :_id str)))
